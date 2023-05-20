@@ -22,7 +22,7 @@ from faker import Faker
 
 
 def main():
-    author = session.query(Author).get(1)
+    author = session.query(Author).get(6)
     fake = Faker()
     article = Article(
         title=fake.sentence(),
