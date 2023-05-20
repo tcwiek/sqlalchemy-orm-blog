@@ -95,7 +95,7 @@
 
 import datetime
 
-from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Table
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 
@@ -149,3 +149,20 @@ class Article(Base):
 
     def __repr__(self):
         return f"Article({self.title})"
+
+
+class Hashtag(Base):
+    __tablename__ = "hashtag"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(50), nullable=False, unique=True)
+
+    def __repr__(self):
+        return f"Hashtag({self.name})"
+
+
+articles_hashtags = Table(
+    "articles_hashtags",
+    Base.metadata,
+    Column("article_id", Integer, ForeignKey("articles.id"), primary_key=True),
+    Column("hashtag_id", Integer, ForeignKey("hashtags.id"), primary_key=True),
+)
